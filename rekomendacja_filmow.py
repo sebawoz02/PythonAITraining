@@ -1,4 +1,4 @@
-# System rekomendacji filmów na bazie naiwnego klasyfikatora Bayesa
+# System rekomendacji filmów na bazie naiwnego klasyfikatora Bayesa napisanego od podstaw
 import numpy as np
 from collections import defaultdict
 
