@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
 import matplotlib.pyplot as plt
 
-face_data = fetch_lfw_people(min_faces_per_person=80)
+face_data = fetch_lfw_people(min_faces_per_person=50)
 
 X = face_data.data
 Y = face_data.target
