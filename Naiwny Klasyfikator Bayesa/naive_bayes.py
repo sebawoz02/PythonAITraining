@@ -30,7 +30,7 @@ def load_rating_data(data_path, n_users, n_movies):
     return data, movie_n_rating, movie_id_mapping
 
 
-data_path = 'ml-1m/ratings.dat'
+data_path = '../ml-1m/ratings.dat'
 n_users = 6040
 n_movies = 3952
 
@@ -73,6 +73,7 @@ clf.fit(X_train, Y_train)
 
 prediction_proba = clf.predict_proba(X_test)
 print(prediction_proba[:10])
+
 
 prediction = clf.predict(X_test)
 print(prediction[:10])
