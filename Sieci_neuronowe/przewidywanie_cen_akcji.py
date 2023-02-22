@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -113,6 +114,7 @@ print(f"Blad sredniokwadratowy: {mean_squared_error(Y_test, predictions):.3f}")
 print(f"Blad bezwzgledny: {mean_absolute_error(Y_test, predictions):.3f}")
 print(f"R^2: {r2_score(Y_test, predictions):.3f}")
 """
+"""
 HP_HIDDEN = hp.HParam('hidden_size', hp.Discrete([64, 32, 16]))
 HP_EPOCHS = hp.HParam('epochs', hp.Discrete([300, 1000]))
 HP_LEARINING_RATE = hp.HParam('learning_rate', hp.RealInterval(0.01, 0.4))
@@ -167,3 +169,22 @@ for hidden in HP_HIDDEN.domain.values:
             print({h.name: hparams[h] for h in hparams})
             run(hparams, 'logs/hparam_tuning/' + run_name)
             session_num += 1
+"""
+
+# optymalny model
+
+model = keras.Sequential([
+    keras.layers.Dense(units=64, activation='relu'),
+    keras.layers.Dense(units=1)
+])
+model.compile(loss='mean_squared_error', optimizer=keras.optimizers.Adam(0.4))
+model.fit(X_scaled_train, Y_train, epochs=1000, verbose=False)
+predictions = model.predict(X_scaled_test)[:, 0]
+
+plt.plot(data_test.index, Y_test, c='k')
+plt.plot(data_test.index, predictions, c='b')
+plt.xticks(range(0, 252, 10), rotation=60)
+plt.xlabel('Data')
+plt.ylabel('Cena zamknięcia')
+plt.legend(['Wartości rzeczywiste', 'Prognozy sieci neuronowej'])
+plt.show()
